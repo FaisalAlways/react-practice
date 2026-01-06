@@ -1,8 +1,8 @@
-import { Button } from "./Button";
+// import { Button } from "./Button";
 const Test = () => {
   // console.log(props, "props");
 
-  const testButton = "Test Button";
+  // const testButton = "Test Button";
 
   // const styleY = {
   //   color: "#16d840ff",
@@ -50,7 +50,7 @@ const Test = () => {
   return (
     <div>
 
-<Button name={testButton} abs="green" />
+{/* <Button name={testButton} abs="green" /> */}
 
 
       {/* <div>

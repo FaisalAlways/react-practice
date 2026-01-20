@@ -113,6 +113,31 @@ const students = [
   { name: "Zara", email: "zara@example.com", grade: "A-", role: "Student" },
 ];
 
+const Fruits = ["Apple", "Banana", "Cherry", "Date", "Elderberry"];
+console.log(Fruits, "<-Fruits Array");
+console.log(Fruits[2], "<-Fruits Array Index check");
+const fruits = [...Fruits, "Mango", "Orange"];
+console.log(fruits[5], "<-Fruits Array Index check after update");
+console.log(fruits, "<-Updated Fruits Array");
+
+const person = {
+  name: "John",
+  age: 25,
+  city: "New York",
+};
+
+console.log(person, "<-Person Object");
+console.log(person.name, "<-Name check");
+
+const updatedPerson = {
+  ...person,
+  country: "USA",
+  profection: "Engineer",
+};
+
+console.log(updatedPerson, "<-Updated Person Object");
+console.log(updatedPerson.profection, "<-Profession after update");
+
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [showCard, setShowCard] = useState(false);

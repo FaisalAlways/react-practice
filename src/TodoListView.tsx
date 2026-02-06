@@ -5,9 +5,18 @@ const TodoListView = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(newTodo, "<-- added to the list");
+    const updatedTodos = [...todos, newTodo];
+    setTodos(updatedTodos);
     setNewTodo("");
+    console.log(updatedTodos);
   };
+
+const handleDelete = (i) => {
+  const newTodos = [...todos];
+  newTodos.splice(i, 1);  
+  setTodos(newTodos);
+};
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -25,7 +34,7 @@ const TodoListView = () => {
           />
           <button
             type="submit"
-            className="bg-slate-800 text-white px-4 py-2 rounded-xs"
+            className="bg-slate-800 text-white px-4 py-2 rounded-xs hover:bg-slate-700 transition-colors cursor-pointer"
           >
             Add New Todo
           </button>
@@ -33,7 +42,17 @@ const TodoListView = () => {
 
         {/* Todo items */}
         <ul className="space-y-2">
-          <li className="flex justify-between items-center bg-gray-50 px-4 py-2 rounded-xl"></li>
+          {todos.map((todo, i) => (
+            <li
+              key={i}
+              className="flex justify-between items-center bg-gray-50 px-4 py-2 rounded-xl"
+            >
+              {todo}
+             
+              {todo}
+              <button  onClick={() => handleDelete(i)}>Delete</button>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

@@ -218,120 +218,152 @@
 //   );
 // };
 
-import { useState } from "react";
+// import { useState } from "react";
 
-const App = () => {
-  const blankData = {
-    name: "",
-    roll: null,
-    fatherName: "",
-    motherName: "",
-    age: null,
-    email: "",
-    phone: "",
-    className: "",
-    section: "",
-    address: "",
-  };
+// const App = () => {
+//   const blankData = {
+//     name: "",
+//     roll: null,
+//     fatherName: "",
+//     motherName: "",
+//     age: null,
+//     email: "",
+//     phone: "",
+//     className: "",
+//     section: "",
+//     address: "",
+//   };
 
-  const [data, setData] = useState([blankData]);
+//   const [data, setData] = useState([blankData]);
 
-  const handleSubmitData = () => {
-    setData([
-      {
-        name: "Asim Ali",
-        roll: 101,
-        fatherName: "Ahmed Khan",
-        motherName: "Ayesha Khan",
-        age: 20,
-        email: "asim@student.edu",
-        phone: "+92 300 1234567",
-        className: "BS Computer Science",
-        section: "A",
-        address: "Lahore, Pakistan",
-      },
-    ]);
-  };
+//   const handleSubmitData = () => {
+//     setData([
+//       {
+//         name: "Asim Ali",
+//         roll: 101,
+//         fatherName: "Ahmed Khan",
+//         motherName: "Ayesha Khan",
+//         age: 20,
+//         email: "asim@student.edu",
+//         phone: "+92 300 1234567",
+//         className: "BS Computer Science",
+//         section: "A",
+//         address: "Lahore, Pakistan",
+//       },
+//     ]);
+//   };
 
-  console.log(data, "<-data state check");
+//   console.log(data, "<-data state check");
 
-  const handleDataReset = () => {
-    setData([blankData]);
-  };
+//   const handleDataReset = () => {
+//     setData([blankData]);
+//   };
 
-  const handlePlusData = () => {
-    setData([...data, blankData]);
-  };
+//   const handlePlusData = () => {
+//     setData([...data, blankData]);
+//   };
 
-  return (
-    <div className="min-h-screen bg-gray-100 p-10">
-      <div className="flex gap-4 mb-8">
-        <button
-          onClick={handleSubmitData}
-          className="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-        >
-          Show Data
-        </button>
+//   return (
+//     <div className="min-h-screen bg-gray-100 p-10">
+//       <div className="flex gap-4 mb-8">
+//         <button
+//           onClick={handleSubmitData}
+//           className="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+//         >
+//           Show Data
+//         </button>
 
-        <button
-          onClick={handleDataReset}
-          className="px-5 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
-        >
-          Reset Data
-        </button>
+//         <button
+//           onClick={handleDataReset}
+//           className="px-5 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+//         >
+//           Reset Data
+//         </button>
 
-        <button
-          onClick={handlePlusData}
-          className="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
-        >
-          Add More
-        </button>
-      </div>
+//         <button
+//           onClick={handlePlusData}
+//           className="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+//         >
+//           Add More
+//         </button>
+//       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {data.map((item, i) => (
-          <div
-            key={i}
-            className="bg-white rounded-xl shadow-md border border-gray-200"
-          >
-            {/* Header */}
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 rounded-t-xl">
-              <h2 className="text-lg font-semibold"> Name {item.name}</h2>
-              <p className="text-sm opacity-90">Roll No: {item.roll}</p>
-            </div>
+//       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+//         {data.map((item, i) => (
+//           <div
+//             key={i}
+//             className="bg-white rounded-xl shadow-md border border-gray-200"
+//           >
+//             {/* Header */}
+//             <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 rounded-t-xl">
+//               <h2 className="text-lg font-semibold"> Name {item.name}</h2>
+//               <p className="text-sm opacity-90">Roll No: {item.roll}</p>
+//             </div>
 
-            {/* Body */}
-            <div className="p-4 text-sm space-y-2">
-              <p>
-                <span className="font-medium">Father:</span> {item.fatherName}
-              </p>
-              <p>
-                <span className="font-medium">Mother:</span> {item.motherName}
-              </p>
-              <p>
-                <span className="font-medium">Age:</span> {item.age}
-              </p>
-              <p>
-                <span className="font-medium">Class:</span> {item.className}
-              </p>
-              <p>
-                <span className="font-medium">Section:</span> {item.section}
-              </p>
-              <p>
-                <span className="font-medium">Email:</span> {item.email}
-              </p>
-              <p>
-                <span className="font-medium">Phone:</span> {item.phone}
-              </p>
-              <p>
-                <span className="font-medium">Address:</span> {item.address}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
+//             {/* Body */}
+//             <div className="p-4 text-sm space-y-2">
+//               <p>
+//                 <span className="font-medium">Father:</span> {item.fatherName}
+//               </p>
+//               <p>
+//                 <span className="font-medium">Mother:</span> {item.motherName}
+//               </p>
+//               <p>
+//                 <span className="font-medium">Age:</span> {item.age}
+//               </p>
+//               <p>
+//                 <span className="font-medium">Class:</span> {item.className}
+//               </p>
+//               <p>
+//                 <span className="font-medium">Section:</span> {item.section}
+//               </p>
+//               <p>
+//                 <span className="font-medium">Email:</span> {item.email}
+//               </p>
+//               <p>
+//                 <span className="font-medium">Phone:</span> {item.phone}
+//               </p>
+//               <p>
+//                 <span className="font-medium">Address:</span> {item.address}
+//               </p>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
 
-export default App;
+// export default App;
+
+// import { useEffect, useState } from "react";
+
+// const App = () => {
+//   const [seconds, setSeconds] = useState(0);
+
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       setSeconds((prev) => prev + 1);
+//     }, 1000);
+//   }, []);
+
+//   return (
+//     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-slate-900 to-black">
+//       <div className="relative bg-white/10 backdrop-blur-xl shadow-2xl rounded-3xl p-12 w-96 text-center border border-white/20">
+//         {/* Glow effect */}
+//         <div className="absolute -top-10 -left-10 w-40 h-40 bg-purple-500 rounded-full blur-3xl opacity-30"></div>
+//         <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-pink-500 rounded-full blur-3xl opacity-30"></div>
+
+//         <h1 className="text-3xl font-semibold text-white mb-8 tracking-wider">
+//           ⏳ Timer
+//         </h1>
+
+//         <h2 className="text-6xl font-extrabold text-white mb-10 tracking-wide">
+//           {seconds}s
+//         </h2>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default App;

@@ -367,3 +367,66 @@
 // };
 
 // export default App;
+
+function App() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center p-4">
+      <div className="w-full max-w-md bg-white/20 backdrop-blur-lg shadow-2xl rounded-3xl p-8 border border-white/30">
+        {/* Title */}
+        <h1 className="text-3xl font-bold text-white text-center mb-6">
+          💰 Expense Tracker
+        </h1>
+
+        {/* Input Section */}
+        <div className="flex gap-3 mb-6">
+          <input
+            type="text"
+            placeholder="Expense Title"
+            className="flex-1 px-4 py-2 rounded-xl bg-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white"
+          />
+
+          <input
+            type="number"
+            placeholder="₹ Amount"
+            className="w-28 px-4 py-2 rounded-xl bg-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white"
+          />
+
+          <button className="px-4 py-2 rounded-xl bg-white text-purple-600 font-semibold hover:bg-purple-100 transition duration-300">
+            Add
+          </button>
+        </div>
+
+        {/* Total Expense */}
+        <div className="bg-white/25 rounded-2xl p-4 text-center mb-6">
+          <p className="text-white/80 text-sm">Total Expense</p>
+          <h2 className="text-2xl font-bold text-white">₹750.00</h2>
+        </div>
+
+        {/* Expense List */}
+        <div className="space-y-4">
+          <div className="flex justify-between items-center bg-white/25 p-4 rounded-2xl">
+            <div>
+              <p className="text-white font-medium">Internet Charges</p>
+              <span className="text-white/70 text-sm">₹500</span>
+            </div>
+            <button className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg transition">
+              ✕
+            </button>
+          </div>
+
+          <div className="flex justify-between items-center bg-white/25 p-4 rounded-2xl">
+            <div>
+              <p className="text-white font-medium">Train Ticket</p>
+              <span className="text-white/70 text-sm">₹250</span>
+            </div>
+            <button className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg transition">
+              ✕
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;

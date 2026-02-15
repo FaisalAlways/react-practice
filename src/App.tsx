@@ -368,64 +368,177 @@
 
 // export default App;
 
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useParams,
+  useLocation,
+} from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+
+// --- Types ---
+interface Project {
+  id: number;
+  title: string;
+  image: string;
+  details: string;
+}
+
+// --- Data ---
+const projects: Project[] = [
+  { id: 1, title: "E-Commerce App", image: "https://images.unsplash.com/photo-1518773553398-650c184e0bb3?q=80&w=1170&auto=format&fit=crop", details: "Full shopping system with cart, checkout, and payments." },
+  { id: 2, title: "Mobile Banking UI", image: "https://images.unsplash.com/photo-1518773553398-650c184e0bb3?q=80&w=1170&auto=format&fit=crop", details: "Modern fintech mobile interface with clean UX." },
+  { id: 3, title: "Analytics Dashboard", image: "https://images.unsplash.com/photo-1518773553398-650c184e0bb3?q=80&w=1170&auto=format&fit=crop", details: "Admin dashboard with charts and real-time data." },
+];
+
 function App() {
+  const [darkMode, setDarkMode] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white/20 backdrop-blur-lg shadow-2xl rounded-3xl p-8 border border-white/30">
-        {/* Title */}
-        <h1 className="text-3xl font-bold text-white text-center mb-6">
-          💰 Expense Tracker
-        </h1>
-
-        {/* Input Section */}
-        <div className="flex gap-3 mb-6">
-          <input
-            type="text"
-            placeholder="Expense Title"
-            className="flex-1 px-4 py-2 rounded-xl bg-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white"
-          />
-
-          <input
-            type="number"
-            placeholder="₹ Amount"
-            className="w-28 px-4 py-2 rounded-xl bg-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white"
-          />
-
-          <button className="px-4 py-2 rounded-xl bg-white text-purple-600 font-semibold hover:bg-purple-100 transition duration-300">
-            Add
-          </button>
-        </div>
-
-        {/* Total Expense */}
-        <div className="bg-white/25 rounded-2xl p-4 text-center mb-6">
-          <p className="text-white/80 text-sm">Total Expense</p>
-          <h2 className="text-2xl font-bold text-white">₹750.00</h2>
-        </div>
-
-        {/* Expense List */}
-        <div className="space-y-4">
-          <div className="flex justify-between items-center bg-white/25 p-4 rounded-2xl">
-            <div>
-              <p className="text-white font-medium">Internet Charges</p>
-              <span className="text-white/70 text-sm">₹500</span>
-            </div>
-            <button className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg transition">
-              ✕
+    <Router>
+      <div className={darkMode ? "dark" : ""}>
+        <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+          
+          {/* NAVBAR */}
+          <nav className="p-5 flex justify-between items-center border-b dark:border-gray-800 bg-white/50 dark:bg-gray-900/50 backdrop-blur-md sticky top-0 z-10">
+            <Link to="/" className="text-2xl font-bold">Portfolio</Link>
+            <button 
+              onClick={() => setDarkMode(!darkMode)}
+              className="p-2 rounded-full bg-gray-200 dark:bg-gray-800"
+            >
+              {darkMode ? "🌞" : "🌙"}
             </button>
-          </div>
+          </nav>
 
-          <div className="flex justify-between items-center bg-white/25 p-4 rounded-2xl">
-            <div>
-              <p className="text-white font-medium">Train Ticket</p>
-              <span className="text-white/70 text-sm">₹250</span>
-            </div>
-            <button className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg transition">
-              ✕
-            </button>
-          </div>
+          {/* PAGE CONTENT */}
+          <AnimatedRoutes setSelectedProject={setSelectedProject} />
+
+          {/* QUICK VIEW MODAL */}
+          <AnimatePresence>
+            {selectedProject && (
+              <Modal project={selectedProject} closeModal={() => setSelectedProject(null)} />
+            )}
+          </AnimatePresence>
         </div>
       </div>
-    </div>
+    </Router>
+  );
+}
+
+/* --- ANIMATED ROUTES --- */
+
+function AnimatedRoutes({ setSelectedProject }: { setSelectedProject: (p: Project | null) => void }) {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<Home setSelectedProject={setSelectedProject} />} />
+        <Route path="/project/:id" element={<ProjectDetails />} />
+      </Routes>
+    </AnimatePresence>
+  );
+}
+
+/* --- PAGES --- */
+
+function Home({ setSelectedProject }: { setSelectedProject: (p: Project | null) => void }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      className="p-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+    >
+      {projects.map((project) => (
+        <motion.div
+          key={project.id}
+          whileHover={{ y: -5 }}
+          className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md border dark:border-gray-700"
+        >
+          <img src={project.image} alt={project.title} className="h-48 w-full object-cover" />
+          <div className="p-5">
+            <h3 className="text-xl font-semibold mb-4">{project.title}</h3>
+            <div className="flex gap-2">
+              <button onClick={() => setSelectedProject(project)} className="text-sm bg-blue-600 text-white px-3 py-1.5 rounded-md">
+                Quick View
+              </button>
+              <Link to={`/project/${project.id}`} className="text-sm bg-gray-200 dark:bg-gray-700 px-3 py-1.5 rounded-md">
+                Full Details
+              </Link>
+            </div>
+          </div>
+        </motion.div>
+      ))}
+    </motion.div>
+  );
+}
+
+function ProjectDetails() {
+  const { id } = useParams();
+  const project = projects.find((p) => p.id === Number(id));
+
+  if (!project) return <div className="p-10 text-center">Project not found.</div>;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      className="p-10 max-w-3xl mx-auto"
+    >
+      <img src={project.image} alt={project.title} className="rounded-2xl w-full mb-8 shadow-2xl" />
+      <h2 className="text-4xl font-bold mb-4">{project.title}</h2>
+      <p className="text-lg text-gray-600 dark:text-gray-400">{project.details}</p>
+      <Link to="/" className="inline-block mt-8 text-blue-500 font-medium">← Back to Gallery</Link>
+    </motion.div>
+  );
+}
+
+/* --- MODAL --- */
+
+/* --- UPDATED SMOOTH MODAL --- */
+
+function Modal({ project, closeModal }: { project: Project; closeModal: () => void }) {
+  return (
+    <motion.div
+      // Smooth fade for the dark background
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }} 
+      onClick={closeModal}
+      className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-6 z-50"
+    >
+      <motion.div
+        // "Pop" effect using spring physics
+        initial={{ scale: 0.8, opacity: 0, y: 20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.8, opacity: 0, y: 20 }}
+        transition={{ 
+          type: "spring", 
+          stiffness: 300, 
+          damping: 25, 
+          velocity: 2 
+        }}
+        onClick={(e) => e.stopPropagation()}
+        className="bg-white dark:bg-gray-800 p-6 rounded-2xl max-w-md w-full shadow-2xl"
+      >
+        <img src={project.image} alt={project.title} className="rounded-lg mb-4" />
+        <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
+        <p className="text-gray-600 dark:text-gray-400 mb-6">{project.details}</p>
+        <button 
+          onClick={closeModal} 
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-bold transition-colors"
+        >
+          Close
+        </button>
+      </motion.div>
+    </motion.div>
   );
 }
 
